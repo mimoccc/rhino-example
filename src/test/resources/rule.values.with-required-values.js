@@ -1,0 +1,1 @@
+function getRequiredValues() { return ["foo", "bar"];  }
