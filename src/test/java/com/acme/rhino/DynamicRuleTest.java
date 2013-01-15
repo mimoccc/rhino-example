@@ -17,6 +17,7 @@ public class DynamicRuleTest extends AbstractTest {
 
 	private static final String STATIC_RESULT = "/rule.evaluate.static-result.js";
 	private static final String DYNAMIC_RESULT = "/rule.evaluate.dynamic-result.js";
+	private static final String INNER_FUNCTION = "/rule.evaluate.inner-function.js";
 
 	@Test
 	public void noRequiredValues() throws IOException {
@@ -48,7 +49,8 @@ public class DynamicRuleTest extends AbstractTest {
 		final DynamicRule rule = DynamicRuleFactory
 				.build(getFile(DYNAMIC_RESULT));
 
-		final HashMap<String, String> valueMap = Maps.<String, String> newHashMap();
+		final HashMap<String, String> valueMap = Maps
+				.<String, String> newHashMap();
 		valueMap.put("foo", "true");
 		valueMap.put("bar", "false");
 		assertEquals(1, rule.evaluate(valueMap).getValue());
@@ -60,6 +62,26 @@ public class DynamicRuleTest extends AbstractTest {
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "false");
 		assertEquals(0, rule.evaluate(valueMap).getValue());
+	}
+
+	@Test
+	public void evaluateWithInnerFunction() throws IOException {
+		final DynamicRule rule = DynamicRuleFactory
+				.build(getFile(INNER_FUNCTION));
+
+		final HashMap<String, String> valueMap = Maps
+				.<String, String> newHashMap();
+		valueMap.put("foo", "true");
+		valueMap.put("bar", "false");
+		assertEquals(1, rule.evaluate(valueMap).getValue());
+
+		valueMap.put("foo", "false");
+		valueMap.put("bar", "true");
+		assertEquals(2, rule.evaluate(valueMap).getValue());
+
+		valueMap.put("foo", "false");
+		valueMap.put("bar", "false");
+		assertEquals(2, rule.evaluate(valueMap).getValue());
 	}
 
 }
