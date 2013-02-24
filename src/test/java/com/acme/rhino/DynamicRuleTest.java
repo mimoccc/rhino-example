@@ -15,7 +15,6 @@ public class DynamicRuleTest extends AbstractTest {
 	private static final String NO_REQUIRED_VALUES = "/rule.values.no-required-values.js";
 	private static final String WITH_REQUIRED_VALUES = "/rule.values.with-required-values.js";
 
-	private static final String STATIC_RESULT = "/rule.evaluate.static-result.js";
 	private static final String DYNAMIC_RESULT = "/rule.evaluate.dynamic-result.js";
 	private static final String INNER_FUNCTION = "/rule.evaluate.inner-function.js";
 
@@ -36,15 +35,6 @@ public class DynamicRuleTest extends AbstractTest {
 	}
 
 	@Test
-	public void evaluateStaticResult() throws IOException {
-		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile(STATIC_RESULT));
-		final Result result = rule.evaluate(Maps.<String, String> newHashMap());
-		assertEquals("static hello", result.getMessage());
-		assertEquals(1, result.getValue());
-	}
-
-	@Test
 	public void evaluateDynamicResult() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
 				.build(getFile(DYNAMIC_RESULT));
@@ -53,15 +43,15 @@ public class DynamicRuleTest extends AbstractTest {
 				.<String, String> newHashMap();
 		valueMap.put("foo", "true");
 		valueMap.put("bar", "false");
-		assertEquals(1, rule.evaluate(valueMap).getValue());
+		assertEquals(1, rule.build(valueMap).getValue());
 
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "true");
-		assertEquals(2, rule.evaluate(valueMap).getValue());
+		assertEquals(2, rule.build(valueMap).getValue());
 
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "false");
-		assertEquals(0, rule.evaluate(valueMap).getValue());
+		assertEquals(0, rule.build(valueMap).getValue());
 	}
 
 	@Test
@@ -73,15 +63,15 @@ public class DynamicRuleTest extends AbstractTest {
 				.<String, String> newHashMap();
 		valueMap.put("foo", "true");
 		valueMap.put("bar", "false");
-		assertEquals(1, rule.evaluate(valueMap).getValue());
+		assertEquals(1, rule.build(valueMap).getValue());
 
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "true");
-		assertEquals(2, rule.evaluate(valueMap).getValue());
+		assertEquals(2, rule.build(valueMap).getValue());
 
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "false");
-		assertEquals(2, rule.evaluate(valueMap).getValue());
+		assertEquals(2, rule.build(valueMap).getValue());
 	}
 
 }

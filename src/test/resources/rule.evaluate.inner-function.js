@@ -1,18 +1,15 @@
-Result = Packages.com.acme.rhino.Result;
-
-function evaluate(a) {
+function build(a) {
 	return innerFunction(a);
 }
 
-
 function innerFunction(a) {
 	if (a.foo === "true") {
-		return Result("static hello", 1);
+		return new Target("static hello", 1);
 	}
-	
+
 	if (a.bar === "true") {
-		return Result("static hello", 2);
+		return new Target("static hello", 2);
 	}
-	
-	return Result("static hello", 0)
+
+	return new Target("static hello", 0)
 }

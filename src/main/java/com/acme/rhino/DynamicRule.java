@@ -28,9 +28,9 @@ public class DynamicRule {
 
 	}
 
-	public Result evaluate(final Map<String, String> values) {
-		final Function evaluate = (Function) scope.get("evaluate", scope);
-		return (Result) Context.jsToJava(evaluate.call(context, scope, scope,
-				new Object[] { new ScriptableMap<>(values) }), Result.class);
+	public Target build(final Map<String, String> values) {
+		final Function buildFunction = (Function) scope.get("build", scope);
+		return (Target) Context.jsToJava(buildFunction.call(context, scope, scope,
+				new Object[] { new ScriptableMap<>(values) }), Target.class);
 	}
 }
