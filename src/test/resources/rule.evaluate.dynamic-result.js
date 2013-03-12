@@ -7,5 +7,5 @@ function build(a) {
 		return new Target("static hello", 2);
 	}
 
-	return new Target("static hello", 0)
+	return new Target("static hello", 3)
 }

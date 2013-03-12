@@ -51,7 +51,7 @@ public class DynamicRuleTest extends AbstractTest {
 
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "false");
-		assertEquals(0, rule.build(valueMap).getValue());
+		assertEquals(3, rule.build(valueMap).getValue());
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class DynamicRuleTest extends AbstractTest {
 
 		valueMap.put("foo", "false");
 		valueMap.put("bar", "false");
-		assertEquals(2, rule.build(valueMap).getValue());
+		assertEquals(3, rule.build(valueMap).getValue());
 	}
 
 }
