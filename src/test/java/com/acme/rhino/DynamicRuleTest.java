@@ -4,11 +4,25 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.mozilla.javascript.EvaluatorException;
 
 public class DynamicRuleTest extends AbstractTest {
+
+	@Before
+	public void setUp() {
+		engine = new SimpleEngine();
+		p = new HashMap<>();
+	}
+
+	@After
+	public void tearDown() {
+		engine.exit();
+	}
 
 	@Test(expected = NullPointerException.class)
 	public void nonExistingJavaScriptFile() throws IOException {

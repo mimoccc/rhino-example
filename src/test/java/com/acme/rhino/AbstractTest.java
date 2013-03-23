@@ -6,24 +6,10 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
-import org.junit.After;
-import org.junit.Before;
-
 public class AbstractTest {
 
 	protected Engine engine;
 	protected HashMap<String, String> p;
-
-	@Before
-	public void setUp() {
-		engine = new SimpleEngine();
-		p = new HashMap<>();
-	}
-
-	@After
-	public void tearDown() {
-		engine.exit();
-	}
 
 	protected DynamicRule parse(final String path) throws IOException {
 		final URI uri = new File(this.getClass().getResource("/" + path)
