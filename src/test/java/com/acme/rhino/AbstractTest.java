@@ -17,11 +17,13 @@ public class AbstractTest {
 		p = new HashMap<>();
 	}
 
-	protected String read(final String path) throws IOException {
+	protected DynamicRule parse(final String path) throws IOException {
 		final URI uri = new File(this.getClass().getResource("/" + path)
 				.getFile()).toURI();
 
-		return new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths
-				.get(uri)), Charset.forName("UTF-8"));
+		return DynamicRule.parse(new String(java.nio.file.Files
+				.readAllBytes(java.nio.file.Paths.get(uri)), Charset
+				.forName("UTF-8")));
+
 	}
 }

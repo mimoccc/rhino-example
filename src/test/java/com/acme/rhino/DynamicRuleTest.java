@@ -6,29 +6,41 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 
 import org.junit.Test;
+import org.mozilla.javascript.EvaluatorException;
 
 public class DynamicRuleTest extends AbstractTest {
 
+	@Test(expected = NullPointerException.class)
+	public void nonExistingJavaScriptFile() throws IOException {
+		parse("non-existing.js");
+	}
+
+	@Test(expected = ClassCastException.class)
+	public void emptyJavaScriptFile() throws IOException {
+		parse("rule.empty-file.js").getRequiredValues();
+	}
+
+	@Test(expected = EvaluatorException.class)
+	public void malformedJavaScriptFile() throws IOException {
+		parse("rule.malformed.js");
+	}
+
 	@Test
 	public void noRequiredValues() throws IOException {
-		assertArrayEquals(
-				new String[] {},
-				DynamicRuleFactory.build(
-						read("rule.values.no-required-values.js"))
-						.getRequiredValues());
+		assertArrayEquals(new String[] {},
+				parse("rule.values.no-required-values.js").getRequiredValues());
 	}
 
 	@Test
 	public void withRequiredValues() throws IOException {
-		assertArrayEquals(new String[] { "foo", "bar" }, DynamicRuleFactory
-				.build(read("rule.values.with-required-values.js"))
-				.getRequiredValues());
+		assertArrayEquals(new String[] { "foo", "bar" },
+				parse("rule.values.with-required-values.js")
+						.getRequiredValues());
 	}
 
 	@Test
 	public void evaluateDynamicResult() throws IOException {
-		final DynamicRule rule = DynamicRuleFactory
-				.build(read("rule.evaluate.dynamic-result.js"));
+		final DynamicRule rule = parse("rule.evaluate.dynamic-result.js");
 
 		p.put("foo", "true");
 		p.put("bar", "false");
@@ -45,8 +57,7 @@ public class DynamicRuleTest extends AbstractTest {
 
 	@Test
 	public void evaluateWithInnerFunction() throws IOException {
-		final DynamicRule rule = DynamicRuleFactory
-				.build(read("rule.evaluate.inner-function.js"));
+		final DynamicRule rule = parse("rule.evaluate.inner-function.js");
 
 		p.put("foo", "true");
 		p.put("bar", "false");
