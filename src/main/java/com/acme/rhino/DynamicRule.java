@@ -1,6 +1,5 @@
 package com.acme.rhino;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.mozilla.javascript.Context;
@@ -36,24 +35,8 @@ public class DynamicRule {
 				Target.class);
 	}
 
-	public static DynamicRule parse(final String script) {
-
-		final Context context = Context.enter();
-		try {
-			final ScriptableObject scope = context.initStandardObjects();
-			ScriptableObject.defineClass(scope, Target.class, false, true);
-			context.evaluateString(scope, script, "script", 1, null);
-			return new DynamicRule(context, scope);
-
-		} catch (final IllegalAccessException e) {
-			throw new IllegalArgumentException("Can't evaluate Script.", e);
-		} catch (final InstantiationException e) {
-			throw new IllegalArgumentException("Can't evaluate Script.", e);
-		} catch (final InvocationTargetException e) {
-			throw new IllegalArgumentException("Can't evaluate Script.", e);
-		} finally {
-			Context.exit();
-		}
-
+	public static DynamicRule parse(final Engine engine, final String script) {
+		engine.evaluate(script);
+		return new DynamicRule(engine.getContext(), engine.getScope());
 	}
 }
