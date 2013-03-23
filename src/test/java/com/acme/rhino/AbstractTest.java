@@ -1,5 +1,7 @@
 package com.acme.rhino;
 
+import static java.nio.file.Files.readAllBytes;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -12,13 +14,13 @@ public class AbstractTest {
 	protected HashMap<String, String> p;
 
 	protected DynamicRule parse(final String path) throws IOException {
-		final URI uri = new File(this.getClass().getResource("/" + path)
-				.getFile()).toURI();
+		return DynamicRule.parse(engine, new String(
+				readAllBytes(java.nio.file.Paths.get(toURI("/simple/" + path))),
+				Charset.forName("UTF-8")));
 
-		return DynamicRule.parse(
-				engine,
-				new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths
-						.get(uri)), Charset.forName("UTF-8")));
+	}
 
+	protected URI toURI(final String path) {
+		return new File(this.getClass().getResource(path).getFile()).toURI();
 	}
 }
