@@ -12,16 +12,10 @@ import com.google.common.collect.Maps;
 
 public class DynamicRuleTest extends AbstractTest {
 
-	private static final String NO_REQUIRED_VALUES = "/rule.values.no-required-values.js";
-	private static final String WITH_REQUIRED_VALUES = "/rule.values.with-required-values.js";
-
-	private static final String DYNAMIC_RESULT = "/rule.evaluate.dynamic-result.js";
-	private static final String INNER_FUNCTION = "/rule.evaluate.inner-function.js";
-
 	@Test
 	public void noRequiredValues() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile(NO_REQUIRED_VALUES));
+				.build(getFile("rule.values.no-required-values.js"));
 		final String[] requiredModels = rule.getRequiredValues();
 		assertArrayEquals(requiredModels, new String[] {});
 	}
@@ -29,7 +23,7 @@ public class DynamicRuleTest extends AbstractTest {
 	@Test
 	public void withRequiredValues() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile(WITH_REQUIRED_VALUES));
+				.build(getFile("rule.values.with-required-values.js"));
 		final String[] requiredModels = rule.getRequiredValues();
 		assertArrayEquals(requiredModels, new String[] { "foo", "bar" });
 	}
@@ -37,7 +31,7 @@ public class DynamicRuleTest extends AbstractTest {
 	@Test
 	public void evaluateDynamicResult() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile(DYNAMIC_RESULT));
+				.build(getFile("rule.evaluate.dynamic-result.js"));
 
 		final HashMap<String, String> valueMap = Maps
 				.<String, String> newHashMap();
@@ -57,7 +51,7 @@ public class DynamicRuleTest extends AbstractTest {
 	@Test
 	public void evaluateWithInnerFunction() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile(INNER_FUNCTION));
+				.build(getFile("rule.evaluate.inner-function.js"));
 
 		final HashMap<String, String> valueMap = Maps
 				.<String, String> newHashMap();
