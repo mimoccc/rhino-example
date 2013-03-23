@@ -13,9 +13,9 @@ public class DynamicRule {
 	private final ScriptableObject scope;
 	private final Context context;
 
-	protected DynamicRule(final Context context, final ScriptableObject scope) {
-		this.context = context;
-		this.scope = scope;
+	protected DynamicRule(final Engine engine) {
+		scope = engine.getScope();
+		context = engine.getContext();
 	}
 
 	public String[] getRequiredValues() {
@@ -37,6 +37,6 @@ public class DynamicRule {
 
 	public static DynamicRule parse(final Engine engine, final String script) {
 		engine.evaluate(script);
-		return new DynamicRule(engine.getContext(), engine.getScope());
+		return new DynamicRule(engine);
 	}
 }
