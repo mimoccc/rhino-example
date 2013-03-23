@@ -4,8 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+
+import org.junit.Before;
 
 public class AbstractTest {
+
+	protected HashMap<String, String> p;
+
+	@Before
+	public void setup() {
+		p = new HashMap<>();
+	}
 
 	protected String read(final String path) throws IOException {
 		final URI uri = new File(this.getClass().getResource("/" + path)

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -12,18 +11,18 @@ public class DynamicRuleTest extends AbstractTest {
 
 	@Test
 	public void noRequiredValues() throws IOException {
-		final DynamicRule rule = DynamicRuleFactory
-				.build(read("rule.values.no-required-values.js"));
-		final String[] requiredModels = rule.getRequiredValues();
-		assertArrayEquals(requiredModels, new String[] {});
+		assertArrayEquals(
+				new String[] {},
+				DynamicRuleFactory.build(
+						read("rule.values.no-required-values.js"))
+						.getRequiredValues());
 	}
 
 	@Test
 	public void withRequiredValues() throws IOException {
-		final DynamicRule rule = DynamicRuleFactory
-				.build(read("rule.values.with-required-values.js"));
-		final String[] requiredModels = rule.getRequiredValues();
-		assertArrayEquals(requiredModels, new String[] { "foo", "bar" });
+		assertArrayEquals(new String[] { "foo", "bar" }, DynamicRuleFactory
+				.build(read("rule.values.with-required-values.js"))
+				.getRequiredValues());
 	}
 
 	@Test
@@ -31,18 +30,17 @@ public class DynamicRuleTest extends AbstractTest {
 		final DynamicRule rule = DynamicRuleFactory
 				.build(read("rule.evaluate.dynamic-result.js"));
 
-		final HashMap<String, String> valueMap = new HashMap<>();
-		valueMap.put("foo", "true");
-		valueMap.put("bar", "false");
-		assertEquals(1, rule.build(valueMap).getValue());
+		p.put("foo", "true");
+		p.put("bar", "false");
+		assertEquals(1, rule.build(p).getValue());
 
-		valueMap.put("foo", "false");
-		valueMap.put("bar", "true");
-		assertEquals(2, rule.build(valueMap).getValue());
+		p.put("foo", "false");
+		p.put("bar", "true");
+		assertEquals(2, rule.build(p).getValue());
 
-		valueMap.put("foo", "false");
-		valueMap.put("bar", "false");
-		assertEquals(3, rule.build(valueMap).getValue());
+		p.put("foo", "false");
+		p.put("bar", "false");
+		assertEquals(3, rule.build(p).getValue());
 	}
 
 	@Test
@@ -50,18 +48,17 @@ public class DynamicRuleTest extends AbstractTest {
 		final DynamicRule rule = DynamicRuleFactory
 				.build(read("rule.evaluate.inner-function.js"));
 
-		final HashMap<String, String> valueMap = new HashMap<>();
-		valueMap.put("foo", "true");
-		valueMap.put("bar", "false");
-		assertEquals(1, rule.build(valueMap).getValue());
+		p.put("foo", "true");
+		p.put("bar", "false");
+		assertEquals(1, rule.build(p).getValue());
 
-		valueMap.put("foo", "false");
-		valueMap.put("bar", "true");
-		assertEquals(2, rule.build(valueMap).getValue());
+		p.put("foo", "false");
+		p.put("bar", "true");
+		assertEquals(2, rule.build(p).getValue());
 
-		valueMap.put("foo", "false");
-		valueMap.put("bar", "false");
-		assertEquals(3, rule.build(valueMap).getValue());
+		p.put("foo", "false");
+		p.put("bar", "false");
+		assertEquals(3, rule.build(p).getValue());
 	}
 
 }
