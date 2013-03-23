@@ -41,8 +41,6 @@
 	</scm>
 
 	<properties>
-		<version.rhino>1.7R4</version.rhino>
-
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -86,7 +84,7 @@
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
-			<version>${version.rhino}</version>
+			<version>1.7R4</version>
 		</dependency>
 
 		<!-- TEST -->
