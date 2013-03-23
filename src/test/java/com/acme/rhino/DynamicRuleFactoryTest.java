@@ -9,18 +9,18 @@ public class DynamicRuleFactoryTest extends AbstractTest {
 
 	@Test(expected = NullPointerException.class)
 	public void nonExistingJavaScriptFile() throws IOException {
-		DynamicRuleFactory.build(getFile("non-existing.js"));
+		DynamicRuleFactory.build(read("non-existing.js"));
 	}
 
 	@Test(expected = ClassCastException.class)
 	public void emptyJavaScriptFile() throws IOException {
-		DynamicRuleFactory.build(getFile("rule.empty-file.js"))
+		DynamicRuleFactory.build(read("rule.empty-file.js"))
 				.getRequiredValues();
 	}
 
 	@Test(expected = EvaluatorException.class)
 	public void malformedJavaScriptFile() throws IOException {
-		DynamicRuleFactory.build(getFile("rule.malformed.js"));
+		DynamicRuleFactory.build(read("rule.malformed.js"));
 	}
 
 }

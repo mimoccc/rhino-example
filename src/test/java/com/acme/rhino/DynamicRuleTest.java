@@ -8,14 +8,12 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
-import com.google.common.collect.Maps;
-
 public class DynamicRuleTest extends AbstractTest {
 
 	@Test
 	public void noRequiredValues() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile("rule.values.no-required-values.js"));
+				.build(read("rule.values.no-required-values.js"));
 		final String[] requiredModels = rule.getRequiredValues();
 		assertArrayEquals(requiredModels, new String[] {});
 	}
@@ -23,7 +21,7 @@ public class DynamicRuleTest extends AbstractTest {
 	@Test
 	public void withRequiredValues() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile("rule.values.with-required-values.js"));
+				.build(read("rule.values.with-required-values.js"));
 		final String[] requiredModels = rule.getRequiredValues();
 		assertArrayEquals(requiredModels, new String[] { "foo", "bar" });
 	}
@@ -31,10 +29,9 @@ public class DynamicRuleTest extends AbstractTest {
 	@Test
 	public void evaluateDynamicResult() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile("rule.evaluate.dynamic-result.js"));
+				.build(read("rule.evaluate.dynamic-result.js"));
 
-		final HashMap<String, String> valueMap = Maps
-				.<String, String> newHashMap();
+		final HashMap<String, String> valueMap = new HashMap<>();
 		valueMap.put("foo", "true");
 		valueMap.put("bar", "false");
 		assertEquals(1, rule.build(valueMap).getValue());
@@ -51,10 +48,9 @@ public class DynamicRuleTest extends AbstractTest {
 	@Test
 	public void evaluateWithInnerFunction() throws IOException {
 		final DynamicRule rule = DynamicRuleFactory
-				.build(getFile("rule.evaluate.inner-function.js"));
+				.build(read("rule.evaluate.inner-function.js"));
 
-		final HashMap<String, String> valueMap = Maps
-				.<String, String> newHashMap();
+		final HashMap<String, String> valueMap = new HashMap<>();
 		valueMap.put("foo", "true");
 		valueMap.put("bar", "false");
 		assertEquals(1, rule.build(valueMap).getValue());

@@ -42,7 +42,6 @@
 
 	<properties>
 		<version.junit>4.10</version.junit>
-		<version.guava>14.0-rc1</version.guava>
 		<version.rhino>1.7R4</version.rhino>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -89,15 +88,6 @@
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 			<version>${version.rhino}</version>
-		</dependency>
-
-		<!-- COMMON -->
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${version.guava}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- TEST -->
