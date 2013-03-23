@@ -1,45 +1,16 @@
 package com.acme.rhino;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.Scriptable;
 
-public class Engine {
+public interface Engine {
 
-	private final Context context;
-	private final ScriptableObject scope;
+	public void evaluate(String script);
 
-	public Engine() {
-		context = Context.enter();
+	public Context getContext();
 
-		try {
-			scope = context.initStandardObjects();
-			ScriptableObject.defineClass(scope, Target.class, false, true);
+	public Scriptable getScope();
 
-		} catch (final IllegalAccessException e) {
-			throw new IllegalArgumentException("Can't define scope.", e);
-		} catch (final InstantiationException e) {
-			throw new IllegalArgumentException("Can't define scope.", e);
-		} catch (final InvocationTargetException e) {
-			throw new IllegalArgumentException("Can't define scope.", e);
-		}
-	}
-
-	public void evaluate(final String script) {
-		context.evaluateString(scope, script, "script", 1, null);
-	}
-
-	public Context getContext() {
-		return context;
-	}
-
-	public ScriptableObject getScope() {
-		return scope;
-	}
-
-	public void exit() {
-		Context.exit();
-	}
+	public void exit();
 
 }

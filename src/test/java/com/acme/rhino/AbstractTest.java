@@ -16,7 +16,7 @@ public class AbstractTest {
 
 	@Before
 	public void setUp() {
-		engine = new Engine();
+		engine = new SimpleEngine();
 		p = new HashMap<>();
 	}
 
