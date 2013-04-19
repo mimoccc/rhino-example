@@ -15,7 +15,7 @@ public class AbstractTest {
 
 	protected DynamicRule parse(final String path) throws IOException {
 		return DynamicRule.parse(engine, new String(
-				readAllBytes(java.nio.file.Paths.get(toURI("/simple/" + path))),
+				readAllBytes(java.nio.file.Paths.get(toURI("/" + path))),
 				Charset.forName("UTF-8")));
 
 	}

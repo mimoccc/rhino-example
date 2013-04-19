@@ -26,35 +26,36 @@ public class DynamicRuleTest extends AbstractTest {
 
 	@Test(expected = NullPointerException.class)
 	public void nonExistingJavaScriptFile() throws IOException {
-		parse("non-existing.js");
+		parse("simple/non-existing.js");
 	}
 
 	@Test(expected = ClassCastException.class)
 	public void emptyJavaScriptFile() throws IOException {
-		parse("rule.empty-file.js").getRequiredValues();
+		parse("simple/rule.empty-file.js").getRequiredValues();
 	}
 
 	@Test(expected = EvaluatorException.class)
 	public void malformedJavaScriptFile() throws IOException {
-		parse("rule.malformed.js");
+		parse("simple/rule.malformed.js");
 	}
 
 	@Test
 	public void noRequiredValues() throws IOException {
 		assertArrayEquals(new String[] {},
-				parse("rule.values.no-required-values.js").getRequiredValues());
+				parse("simple/rule.values.no-required-values.js")
+						.getRequiredValues());
 	}
 
 	@Test
 	public void withRequiredValues() throws IOException {
 		assertArrayEquals(new String[] { "foo", "bar" },
-				parse("rule.values.with-required-values.js")
+				parse("simple/rule.values.with-required-values.js")
 						.getRequiredValues());
 	}
 
 	@Test
 	public void evaluateDynamicResult() throws IOException {
-		final DynamicRule rule = parse("rule.evaluate.dynamic-result.js");
+		final DynamicRule rule = parse("simple/rule.evaluate.dynamic-result.js");
 
 		p.put("foo", "true");
 		p.put("bar", "false");
@@ -71,7 +72,7 @@ public class DynamicRuleTest extends AbstractTest {
 
 	@Test
 	public void evaluateWithInnerFunction() throws IOException {
-		final DynamicRule rule = parse("rule.evaluate.inner-function.js");
+		final DynamicRule rule = parse("simple/rule.evaluate.inner-function.js");
 
 		p.put("foo", "true");
 		p.put("bar", "false");
